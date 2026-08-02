@@ -33,7 +33,7 @@ class SampleHandler: RPBroadcastSampleHandler {
 
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
 
-        let request = self.textRequest
+        guard let request = self.textRequest else { return }
         let handler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [:])
         do {
             try handler.perform([request])
