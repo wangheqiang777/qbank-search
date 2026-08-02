@@ -6,7 +6,9 @@ plugins {
 
 android {
     namespace = "com.example.qbank_search"
-    compileSdk = flutter.compileSdkVersion
+    // 显式指定 compileSdk=36：file_picker 依赖的 flutter_plugin_android_lifecycle
+    // 要求至少 android-36，flutter.compileSdkVersion 取到的是 34，会导致 checkAarMetadata 失败
+    compileSdk = 36
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
@@ -20,7 +22,7 @@ android {
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
+        targetSdk = 36
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
