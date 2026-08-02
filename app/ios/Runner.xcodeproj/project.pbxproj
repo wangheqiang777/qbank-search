@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
+		14E34B0495E2F72DF1E8C351 /* PipAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9547768AC9BB55331C8C63 /* PipAnswerView.swift */; };
 		331C808B294A63AB00263BE5 /* RunnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C807B294A618700263BE5 /* RunnerTests.swift */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
 		3D998BB1B2DB578AC9C58BF1 /* BroadcastUploadExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 805304D5AEE1E1BFBB6A5D2B /* BroadcastUploadExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		3EDF44C2A16EF5EE20E5BDAC /* ScanBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45F4F93891B3109C45DAA16 /* ScanBridge.swift */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		7884E8682EC3CC0700C636F2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7884E8672EC3CC0400C636F2 /* SceneDelegate.swift */; };
 		78A318202AECB46A00862997 /* FlutterGeneratedPluginSwiftPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 78A3181F2AECB46A00862997 /* FlutterGeneratedPluginSwiftPackage */; };
@@ -19,7 +19,7 @@
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
 		B90AFD7ABAD6BE594A1FF8C3 /* BroadcastUploadExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399E188A6931F9D796A23E7B /* BroadcastUploadExtension.swift */; };
-		F2F94268934EE237D5441B9D /* PipAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69948B89D2B97BAA9932DF5 /* PipAnswerView.swift */; };
+		BB224D21BCCFCB29929AD3BE /* ScanBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07B461789A2DA8B1BFAB19A /* ScanBridge.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +66,7 @@
 /* Begin PBXFileReference section */
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
+		2F9547768AC9BB55331C8C63 /* PipAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PipAnswerView.swift; path = PipAnswerView.swift; sourceTree = "<group>"; };
 		331C807B294A618700263BE5 /* RunnerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerTests.swift; sourceTree = "<group>"; };
 		331C8081294A63A400263BE5 /* RunnerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RunnerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		399E188A6931F9D796A23E7B /* BroadcastUploadExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BroadcastUploadExtension.swift; sourceTree = "<group>"; };
@@ -85,9 +86,8 @@
 		97C146FD1CF9000F007C117D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B45F4F93891B3109C45DAA16 /* ScanBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ScanBridge.swift; path = ScanBridge.swift; sourceTree = "<group>"; };
 		CA600D8D361B5E813BD04D50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = BroadcastUploadExtension/Info.plist; sourceTree = "<group>"; };
-		F69948B89D2B97BAA9932DF5 /* PipAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PipAnswerView.swift; path = PipAnswerView.swift; sourceTree = "<group>"; };
+		E07B461789A2DA8B1BFAB19A /* ScanBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ScanBridge.swift; path = ScanBridge.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,8 +146,8 @@
 				97C146F01CF9000F007C117D /* Runner */,
 				97C146EF1CF9000F007C117D /* Products */,
 				331C8082294A63A400263BE5 /* RunnerTests */,
-				B45F4F93891B3109C45DAA16 /* ScanBridge.swift */,
-				F69948B89D2B97BAA9932DF5 /* PipAnswerView.swift */,
+				E07B461789A2DA8B1BFAB19A /* ScanBridge.swift */,
+				2F9547768AC9BB55331C8C63 /* PipAnswerView.swift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -365,16 +365,8 @@
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 				7884E8682EC3CC0700C636F2 /* SceneDelegate.swift in Sources */,
-				3EDF44C2A16EF5EE20E5BDAC /* ScanBridge.swift in Sources */,
-				F2F94268934EE237D5441B9D /* PipAnswerView.swift in Sources */,
-				{
-					isa = PBXBuildFile;
-					fileRef = B45F4F93891B3109C45DAA16 /* ScanBridge.swift */;
-				},
-				{
-					isa = PBXBuildFile;
-					fileRef = F69948B89D2B97BAA9932DF5 /* PipAnswerView.swift */;
-				},
+				BB224D21BCCFCB29929AD3BE /* ScanBridge.swift in Sources */,
+				14E34B0495E2F72DF1E8C351 /* PipAnswerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

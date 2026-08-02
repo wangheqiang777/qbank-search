@@ -22,11 +22,12 @@ subprojects {
 // 强制所有 Android 模块(含插件如 file_picker)用 compileSdk=36。
 // 插件自身按 flutter.compileSdkVersion(=34) 编译,但其依赖
 // flutter_plugin_android_lifecycle 要求 >=36, 不强制会 checkAarMetadata 失败。
-subprojects {
-    afterEvaluate {
-        extensions.findByType<com.android.build.gradle.LibraryExtension>()?.apply {
-            compileSdk = 36
-        }
+// 用 gradle.projectsEvaluated 在所有工程配置完成后统一覆盖——避免 afterEvaluate
+// 与上方 evaluationDependsOn(":app") 冲突(Cannot run afterEvaluate when already evaluated)。
+gradle.projectsEvaluated {
+    rootProject.subprojects { sub ->
+        sub.extensions.findByType(com.android.build.gradle.BaseExtension::class.java)
+            ?.compileSdkVersion(36)
     }
 }
 
