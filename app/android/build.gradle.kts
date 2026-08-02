@@ -1,4 +1,5 @@
 import com.android.build.api.dsl.LibraryExtension
+import com.android.build.api.extension.AndroidComponentsExtension
 import com.android.build.gradle.LibraryPlugin
 
 allprojects {
@@ -31,10 +32,8 @@ subprojects {
 subprojects {
     plugins.withType(LibraryPlugin::class.java).configureEach {
         val lib = extensions.getByType(LibraryExtension::class.java)
-        lib.androidComponents {
-            finalizeDsl {
-                lib.compileSdk = 36
-            }
+        extensions.getByType(AndroidComponentsExtension::class.java).finalizeDsl {
+            lib.compileSdk = 36
         }
     }
 }
