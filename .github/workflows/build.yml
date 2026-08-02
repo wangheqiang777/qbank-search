@@ -90,18 +90,25 @@ jobs:
           channel: stable
           cache: true
       - run: flutter pub get
-      - name: 编译 apk（遇 Maven 限流 429 自动重试）
+      - name: 编译 apk（限流重试；编译/配置错立刻停，不浪费重试）
         run: |
           for i in 1 2 3 4 5; do
             echo "=== 第 $i 次尝试 flutter build apk ==="
-            if flutter build apk --release; then
+            if flutter build apk --release > /tmp/apk_build.log 2>&1; then
               echo "BUILD_OK"
               exit 0
             fi
-            echo "构建失败，很可能是 Maven Central/Gradle Plugin Portal 限流(429)，90 秒后重试..."
+            echo "--- 失败，诊断错误类型 ---"
+            if grep -qE "Unresolved reference|e: file://|What went wrong" /tmp/apk_build.log; then
+              echo "检测到【编译/配置错误】(非限流)，不重试，打印尾部日志："
+              tail -60 /tmp/apk_build.log
+              exit 1
+            fi
+            echo "疑似 Maven Central/Gradle Plugin Portal 限流(429)，90 秒后重试..."
             sleep 90
           done
-          echo "重试 5 次仍失败"
+          echo "重试 5 次仍失败，最后日志："
+          tail -60 /tmp/apk_build.log
           exit 1
       - uses: actions/upload-artifact@v4
         with:
