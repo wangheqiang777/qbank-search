@@ -90,7 +90,19 @@ jobs:
           channel: stable
           cache: true
       - run: flutter pub get
-      - run: flutter build apk --release
+      - name: 编译 apk（遇 Maven 限流 429 自动重试）
+        run: |
+          for i in 1 2 3 4 5; do
+            echo "=== 第 $i 次尝试 flutter build apk ==="
+            if flutter build apk --release; then
+              echo "BUILD_OK"
+              exit 0
+            fi
+            echo "构建失败，很可能是 Maven Central/Gradle Plugin Portal 限流(429)，90 秒后重试..."
+            sleep 90
+          done
+          echo "重试 5 次仍失败"
+          exit 1
       - uses: actions/upload-artifact@v4
         with:
           name: qbank-search-apk
