@@ -1,6 +1,5 @@
 import com.android.build.gradle.LibraryPlugin
 import com.android.build.api.dsl.LibraryExtension
-import com.android.build.api.extension.AndroidComponentsExtension
 
 plugins {
     // 在根脚本引入 AGP 的 library 插件(apply false), 使其类型(LibraryPlugin/LibraryExtension)
@@ -34,15 +33,12 @@ subprojects {
 // 仅 App 模块设 36 不够: file_picker 等插件模块自身用自己 build.gradle 里的低版本(34)编译,
 // 其 checkReleaseAarMetadata 会因依赖 flutter_plugin_android_lifecycle 要求的 minCompileSdk 失败。
 // Flutter 的 detectLowCompileSdkVersionOrNdkVersion 只打警告、不强制改插件 compileSdk, 故必须在此强制。
-// 必须在 finalizeDsl(android 块执行后、DSL 模型锁定前)注入: 直接写在配置期会被插件自身的
-// android { compileSdk = 34 } 覆盖; AGP 9.0 方法名是小写 finalizeDsl (老 finalizeDSl 已移除)。
-// AGP 9.0 中 androidComponents 不是 LibraryExtension 的可解析成员属性, 需通过
-// extensions.getByType(AndroidComponentsExtension) 取出后调用 finalizeDsl。
+// 用 afterEvaluate 在模块自身 android { compileSdk = 34 } 执行之后再覆盖为 36, 确保生效。
+// (finalizeDsl / AndroidComponentsExtension 在根脚本 classpath 无法解析, 故不采用该写法。)
 subprojects {
     plugins.withType(LibraryPlugin::class.java).configureEach {
-        val lib = extensions.getByType(LibraryExtension::class.java)
-        extensions.getByType(AndroidComponentsExtension::class.java).finalizeDsl {
-            lib.compileSdk = 36
+        afterEvaluate {
+            extensions.getByType(LibraryExtension::class.java).compileSdk = 36
         }
     }
 }
