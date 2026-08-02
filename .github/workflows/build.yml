@@ -60,7 +60,7 @@ jobs:
           mkdir -p Payload
           cp -R Runner.app Payload/
           # 确认扩展已被嵌入
-          ls -d Payload/Runner.app/Plugins/*.appex || echo "WARN: 未找到嵌入的扩展"
+          ls -d Payload/Runner.app/Plugins/*.appex || { echo "ERROR: 广播扩展(.appex)未嵌入 ipa，录屏搜题功能不可用"; exit 1; }
           zip -qry qbank-search.ipa Payload
           ls -lh qbank-search.ipa
 

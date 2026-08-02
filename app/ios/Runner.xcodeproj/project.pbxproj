@@ -227,6 +227,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				4451C3BD8609DCDCC1922053 /* BroadcastUploadExtension */,
 			);
 			name = Runner;
 			packageProductDependencies = (

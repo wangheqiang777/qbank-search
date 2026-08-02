@@ -1,10 +1,14 @@
 import com.android.build.gradle.LibraryPlugin
 import com.android.build.api.extension.AndroidComponentsExtension
+import com.android.build.api.dsl.LibraryExtension
 
 plugins {
-    // 在根脚本引入 AGP，使其类型(AndroidComponentsExtension/LibraryPlugin)可被本文件 import。
+    // 在根脚本引入 AGP，使其类型可被本文件 import。
     // 注意: 仅 apply false，不应用到根工程本身(根工程不是 Android 工程)。
-    id("com.android.library") version "9.0.1" apply false
+    // 版本由 settings.gradle.kts 统一声明，这里不写 version，
+    // 避免与 classpath 上已通过 com.android.application 引入的 AGP 包冲突
+    // (否则报 "plugin is already on the classpath with an unknown version")。
+    id("com.android.library") apply false
 }
 
 allprojects {
@@ -37,8 +41,8 @@ subprojects {
     plugins.withType(LibraryPlugin::class.java).configureEach {
         extensions
             .getByType(AndroidComponentsExtension::class.java)
-            .finalizeDsl {
-                compileSdk = 36
+            .finalizeDsl { lib: LibraryExtension ->
+                lib.compileSdk = 36
             }
     }
 }
