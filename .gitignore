@@ -1,0 +1,27 @@
+# ===== Flutter / Dart build & cache =====
+**/build/
+**/.dart_tool/
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/.packages
+**/.pub-cache/
+**/doc/api/
+
+# ===== IDE / OS =====
+.DS_Store
+Thumbs.db
+*.iml
+.idea/
+
+# ===== Logs / temp =====
+*.log
+
+# ===== Personal data: 用户自己的题库，绝不进公开仓库 =====
+bank.json
+
+# ===== Android (also handled by nested .gitignore) =====
+**/android/.gradle/
+**/android/local.properties
+**/android/**/GeneratedPluginRegistrant.java
+**/android/key.properties
+*.jks

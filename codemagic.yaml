@@ -1,0 +1,53 @@
+# Codemagic 备用方案：如果 GitHub Actions 的 macOS 额度用完，用这个
+# 官网 codemagic.io → 连接 GitHub 仓库 → 它会自动读取本文件
+workflows:
+  ios-unsigned:
+    name: iOS 未签名 ipa
+    instance_type: mac_mini_m2
+    max_build_duration: 45
+    environment:
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+    scripts:
+      - name: 生成 ios 平台目录（保留自有源码）
+        script: |
+          cd app
+          mkdir -p /tmp/keep
+          cp pubspec.yaml /tmp/keep/
+          cp -R lib /tmp/keep/
+          flutter create --platforms=ios,android \
+            --org com.qbanksearch --project-name qbank_search .
+          cp /tmp/keep/pubspec.yaml pubspec.yaml
+          rm -rf lib && cp -R /tmp/keep/lib lib
+
+      - name: 设置桌面显示名
+        script: |
+          cd app
+          PLIST=ios/Runner/Info.plist
+          /usr/libexec/PlistBuddy -c "Set :CFBundleDisplayName 搜答案" "$PLIST" \
+            || /usr/libexec/PlistBuddy -c "Add :CFBundleDisplayName string 搜答案" "$PLIST"
+          /usr/libexec/PlistBuddy -c "Add :UIFileSharingEnabled bool true" "$PLIST" || true
+          /usr/libexec/PlistBuddy -c "Add :LSSupportsOpeningDocumentsInPlace bool true" "$PLIST" || true
+
+      - name: 拉依赖
+        script: cd app && flutter pub get
+
+      - name: 编译（不签名）
+        script: cd app && flutter build ios --release --no-codesign
+
+      - name: 打包 ipa
+        script: |
+          cd app/build/ios/iphoneos
+          mkdir -p Payload
+          cp -R Runner.app Payload/
+          zip -qry qbank-search.ipa Payload
+
+    artifacts:
+      - app/build/ios/iphoneos/*.ipa
+
+    # 想让构建完自动把 ipa 发到邮箱，把下面邮箱改成你自己的并取消注释
+    # publishing:
+    #   email:
+    #     recipients:
+    #       - you@example.com
