@@ -1,3 +1,6 @@
+import com.android.build.api.dsl.LibraryExtension
+import com.android.build.gradle.LibraryPlugin
+
 allprojects {
     repositories {
         google()
@@ -19,17 +22,20 @@ subprojects {
     project.evaluationDependsOn(":app")
 }
 
-// 强制所有 Android 模块(含插件如 file_picker)用 compileSdk=36。
-// 插件自身按 flutter.compileSdkVersion 编译,但其依赖
-// flutter_plugin_android_lifecycle 要求 >=35, 不强制会 checkAarMetadata 失败。
-// AGP 9.0 默认 android.newDsl=true: 旧的 BaseExtension/compileSdkVersion 已废弃,
-// 改用 com.android.build.api.dsl.LibraryExtension 的 compileSdk 属性。
-// 用 gradle.projectsEvaluated 在所有工程配置完成后统一覆盖, 避免与
-// 上方 evaluationDependsOn(":app") 冲突(Cannot run afterEvaluate when already evaluated)。
-gradle.projectsEvaluated {
-    rootProject.subprojects.forEach { sub ->
-        sub.extensions.findByType(com.android.build.api.dsl.LibraryExtension::class.java)
-            ?.apply { compileSdk = 36 }
+// 强制所有 Flutter 插件(Library)模块用 compileSdk=36。
+// 失败原因：编译依赖(如 flutter_plugin_android_lifecycle)要求 compileSdk>=36，
+// 而插件默认按 flutter.compileSdkVersion(34) 编译，checkReleaseAarMetadata 会失败。
+// AGP 9.0 在 evaluation 阶段即锁定 compileSdk，gradle.projectsEvaluated 已太晚
+// (报错 "It is too late to set compileSdk")。正确位置是 androidComponents.finalizeDsl
+// —— 在 DSL 正式收尾前修改，由 com.android.library 插件应用时注册。
+subprojects {
+    plugins.withType(LibraryPlugin::class.java).configureEach {
+        val lib = extensions.getByType(LibraryExtension::class.java)
+        lib.androidComponents {
+            finalizeDsl {
+                lib.compileSdk = 36
+            }
+        }
     }
 }
 

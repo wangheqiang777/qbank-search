@@ -14,6 +14,6 @@ import UIKit
   /// ScanBridge 负责：开始/停止录屏扫描、PiP 悬浮窗、轮询扩展写来的 OCR 文本并匹配答案。
   func didInitializeImplicitFlutterEngine(_ engineBridge: FlutterImplicitEngineBridge) {
     GeneratedPluginRegistrant.register(with: engineBridge.pluginRegistry)
-    ScanBridge.shared.setup(engineBridge.pluginRegistry.binaryMessenger)
+    ScanBridge.shared.setup(engineBridge.applicationRegistrar.messenger())
   }
 }
