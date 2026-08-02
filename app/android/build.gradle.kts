@@ -1,13 +1,10 @@
 import com.android.build.gradle.LibraryPlugin
-import com.android.build.api.extension.AndroidComponentsExtension
 import com.android.build.api.dsl.LibraryExtension
 
 plugins {
-    // 在根脚本引入 AGP，使其类型可被本文件 import。
-    // 注意: 仅 apply false，不应用到根工程本身(根工程不是 Android 工程)。
-    // 版本由 settings.gradle.kts 统一声明，这里不写 version，
-    // 避免与 classpath 上已通过 com.android.application 引入的 AGP 包冲突
-    // (否则报 "plugin is already on the classpath with an unknown version")。
+    // 在根脚本引入 AGP 的 library 插件(apply false), 使其类型(LibraryPlugin/LibraryExtension)
+    // 可被本文件 import 与引用. 版本由 settings.gradle.kts 统一声明, 这里不带 version,
+    // 避免与 classpath 上已通过 com.android.application 引入的 AGP 包冲突.
     id("com.android.library") apply false
 }
 
@@ -33,17 +30,19 @@ subprojects {
 }
 
 // 强制所有 Android 库/插件模块(library plugin)用 compileSdk=36。
-// 仅 App 模块设 36 不够: file_picker 等插件模块自身也需 36，否则其
-// checkReleaseAarMetadata 会因 flutter_plugin_android_lifecycle 要求的 minCompileSdk 失败。
-// AGP 9.0 必须在 finalizeDsl(DSL 收尾、模型锁定前)注入，
-// 在 afterEvaluate/projectsEvaluated 里设会报 "too late to set compileSdk"。
+// 仅 App 模块设 36 不够: file_picker 等插件模块自身用自己 build.gradle 里的低版本(34)编译,
+// 其 checkReleaseAarMetadata 会因依赖 flutter_plugin_android_lifecycle 要求的 minCompileSdk 失败。
+// Flutter 的 detectLowCompileSdkVersionOrNdkVersion 只打警告、不强制改插件 compileSdk, 故必须在此强制。
+// 必须在 finalizeDsl(android 块执行后、DSL 模型锁定前)注入: 直接写在配置期会被插件自身的
+// android { compileSdk = 34 } 覆盖; AGP 9.0 方法名是小写 finalizeDsl (老 finalizeDSl 已移除)。
+// 不 import AndroidComponentsExtension(根脚本 classpath 解析不到), 直接通过
+// LibraryExtension.androidComponents 属性访问 finalizeDsl 即可。
 subprojects {
     plugins.withType(LibraryPlugin::class.java).configureEach {
-        extensions
-            .getByType(AndroidComponentsExtension::class.java)
-            .finalizeDsl { lib: LibraryExtension ->
-                lib.compileSdk = 36
-            }
+        val lib = extensions.getByType(LibraryExtension::class.java)
+        lib.androidComponents.finalizeDsl {
+            lib.compileSdk = 36
+        }
     }
 }
 
