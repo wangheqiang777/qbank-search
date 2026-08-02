@@ -66,7 +66,7 @@
 /* Begin PBXFileReference section */
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
-		2F9547768AC9BB55331C8C63 /* PipAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PipAnswerView.swift; path = PipAnswerView.swift; sourceTree = "<group>"; };
+		2F9547768AC9BB55331C8C63 /* PipAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PipAnswerView.swift; path = Runner/PipAnswerView.swift; sourceTree = "<group>"; };
 		331C807B294A618700263BE5 /* RunnerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerTests.swift; sourceTree = "<group>"; };
 		331C8081294A63A400263BE5 /* RunnerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RunnerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		399E188A6931F9D796A23E7B /* BroadcastUploadExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BroadcastUploadExtension.swift; sourceTree = "<group>"; };
@@ -87,7 +87,7 @@
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CA600D8D361B5E813BD04D50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = BroadcastUploadExtension/Info.plist; sourceTree = "<group>"; };
-		E07B461789A2DA8B1BFAB19A /* ScanBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ScanBridge.swift; path = ScanBridge.swift; sourceTree = "<group>"; };
+		E07B461789A2DA8B1BFAB19A /* ScanBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ScanBridge.swift; path = Runner/ScanBridge.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
